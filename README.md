@@ -1,6 +1,8 @@
 ## Musical 3D Printer
 A fun easy script that turns a midi file into a GCode file which a 3D printer can execute/play
 
+(currently only plays one note at the same time)
+
 
 ### How to use
 A quick overview of how to use this script.

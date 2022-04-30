@@ -16,7 +16,7 @@ python musical_printer.py [input directory] [save to usb y/n] [output directory]
 
 #Argument: save to usb
 #This argument is optional. If this argument is Y/yes 
-#than the script will automatically detect an connected usb 
+#than the script will automatically detect a connected usb 
 #storage device and save it to the first one it detects.
 
 #Argument: Output directory

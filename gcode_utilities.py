@@ -11,13 +11,14 @@ def GCodeWait(time: float) -> str:
     return "G4 P" + str(time*1000) + "\n"
 
 def GetGCodePrinterSetup() -> str:
-    resetExtruder = "G92 E0\n"
-    resetToHome = "G28\n"
-    setSpeed = "G1 Z2.0 F3000\n"
-    setExtruder = "M104 S" + str(0) + "\n"
-    setAbsolutePositioning = "G90\n"
-    setBed = "M140 S" + str(0) + "\n"
-    return resetExtruder + resetToHome + setSpeed + setExtruder + setAbsolutePositioning + setBed
+    # resetExtruder = "G92 E0\n"
+    # resetToHome = "G28\n"
+    # setSpeed = "G1 Z2.0 F3000\n"
+    # setExtruder = "M104 S" + str(0) + "\n"
+    # setAbsolutePositioning = "G90\n"
+    # setBed = "M140 S" + str(0) + "\n"
+    # return resetExtruder + resetToHome + setSpeed + setExtruder + setAbsolutePositioning + setBed
+    return "G92 E0\nG28\nG1 Z2.0 F3000\nM104 S0 \nG90\nM140 S0\n"
  
 class Position:
     def __init__(self, x: float, y: float, z: float):

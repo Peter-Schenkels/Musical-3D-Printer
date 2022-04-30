@@ -7,13 +7,32 @@ lastDir = 1
 #END GLOBALS    
 
 def GCodeGenerateStepperFrequency(frequency: float, position: Position) -> str:
+    """Generates a gcode file that moves the stepper to the given frequency and position
+
+    Args:
+        frequency (float): The frequency of the note
+        position (Position): The position of the stepper
+
+    Returns:
+        str: GCode for the given frequency and position
+    """    
     setFrequencyLength = position.toGCode(frequency)
     return setFrequencyLength
         
 def GeneratePositionForNoteDuration(duration: float, currentPosition: Position, frequency: float) -> Position:
+    """Generates a new position for the given note and its duration to match the duration of the note
+
+    Args:
+        duration (float): The duration of the note
+        currentPosition (Position): The current position of the stepper
+        frequency (float): The frequency of the note
+
+    Returns:
+        Position: The new position of the stepper
+    """    
+    
     global lastAxis
     global lastDir
-    
     
     #Note Length in units?
     MagicNumberSeconds = 50
@@ -35,6 +54,14 @@ def GeneratePositionForNoteDuration(duration: float, currentPosition: Position, 
     return generatedPosition
 
 def GCodePlayNotes(notes: list[tuple[str, float]]) -> str:
+    """Generates a gcode file that plays the given notes and their durations
+
+    Args:
+        notes (list[tuple[str, float]]): List of notes and their durations
+
+    Returns:
+        str: GCode for the given notes and their durations
+    """    
     noteTable = music.GenerateTwelveToneRange(baseFrequency=55)
     outputFrequenciesAndLengths = []
     
@@ -45,6 +72,13 @@ def GCodePlayNotes(notes: list[tuple[str, float]]) -> str:
 
 
 def GCodePlayFrequencies(frequencies: list[tuple[float, float]]) -> str:
+    """Generates a gcode file that plays the given frequencies and their durations
+
+    Args:
+        frequencies (list[tuple[float, float]]): List of frequencies and their durations
+    Returns:
+        str: GCode for the given frequencies and their durations
+    """    
     gcodeOutput = "" 
     position = Position(0, 0, 0)
     
@@ -60,5 +94,10 @@ def GCodePlayFrequencies(frequencies: list[tuple[float, float]]) -> str:
 
 
 def GCodePlayScale() -> str:
-    scale = list(zip(list(music.GenerateTwelveToneRangeNames(nrOfNotes=47)), [1] * 47))
+    """Generates a gcode file that plays the chromatic scale for 47 notes
+
+    Returns:
+        str: GCode for the chromatic scale
+    """    
+    scale = list(zip(list(music.GenerateTwelveToneRange(nrOfNotes=47, names=True)), [1] * 47))
     return GCodePlayFrequencies(scale)

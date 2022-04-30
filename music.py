@@ -4,6 +4,14 @@ from mido import MidiFile
 
 
 def ParseMidiFileToNotes(midiFile:MidiFile) -> list[tuple[str, float]]:
+    """Parses a midi file to a list of notes and their durations
+
+    Args:
+        midiFile (MidiFile): The midi file to parse
+
+    Returns:
+        list[tuple[str, float]]: List of notes and their duration
+    """    
     notes = []
     currentTime = 0
     MidiNoteState = {}
@@ -34,8 +42,15 @@ def ParseMidiFileToNotes(midiFile:MidiFile) -> list[tuple[str, float]]:
     
     return notes
 
-def MidoMidiFileToNotes(fileDirectory) -> list[tuple[str, float]]:
-    
+def MidoMidiFileToNotes(fileDirectory: str) -> list[tuple[str, float]]:
+    """Converts a midi file to a list of notes and their durations
+
+    Args:
+        fileDirectory (str): The directory of the midi file
+
+    Returns:
+        list[tuple[str, float]]: List of notes and their duration
+    """    
     midiFile = MidiFile(fileDirectory)
     notes = ParseMidiFileToNotes(midiFile)
     lookupNoteFrequencies = GenerateTwelveToneRange(nrOfNotes=47)
@@ -49,23 +64,32 @@ def MidoMidiFileToNotes(fileDirectory) -> list[tuple[str, float]]:
     return outputNotes
 
 
-def GenerateTwelveToneRange(nrOfNotes:int=47, baseFrequency:float=55) -> list[float]:
-    frequencies = []
-    for noteNr in range(0, nrOfNotes):
-        noteFrequency = baseFrequency * math.pow(2, noteNr/12)
-        frequencies.append(noteFrequency)
+def GenerateTwelveToneRange(nrOfNotes:int=47, baseFrequency:float=55, names:bool=False) -> list[float] or dict[float, str]:
+    """Generates a list of frequencies for the twelve tones in the western harmonic system
 
-    return frequencies
-    
-def GenerateTwelveToneRangeNames(nrOfNotes:int=47, baseFrequency:float=55) -> dict[float, str]:
+    Args:
+        nrOfNotes (int, optional): Nr of notes to generate form the base frequency. Defaults to 47.
+        baseFrequency (float, optional): Starting frequency. Defaults to 55.
+        names (bool, optional): Wether names shoudl be included in the list of frequencues. Defaults to False.
+
+    Returns:
+        list[float]: List of frequencies
+        dict[float, str]: Dictionary of frequencies and names
+    """    
     frequencies = []
     notenames = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
     for noteNr in range(0, nrOfNotes):
         noteFrequency = baseFrequency * math.pow(2, noteNr/len(notenames))
-        octaveNr = int(noteNr / len(notenames))
-        currentNote = notenames[noteNr % len(notenames)]
-        generatedNoteName = currentNote + str(octaveNr)
-        frequencies.append((noteFrequency, generatedNoteName))
- 
-    return dict(frequencies)
+        if(names is True):
+            octaveNr = int(noteNr / len(notenames))
+            currentNote = notenames[noteNr % len(notenames)]
+            generatedNoteName = currentNote + str(octaveNr)
+            frequencies.append((noteFrequency, generatedNoteName))
+        else:
+            frequencies.append(noteFrequency)
 
+    if names is True:
+        return dict(frequencies)
+    else:
+        return frequencies
+    

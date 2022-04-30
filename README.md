@@ -12,13 +12,17 @@ pip install -e .
 python musical_printer.py [input directory] [save to usb y/n] [output directory]
 
 #Argument: Input directory
-Input midi file
+#Input midi file
 
 #Argument: save to usb
-This argument is optional. If this argument is Y/yes than the script will automatically detect an connected usb storage device and save it to the first one it detects.
+#This argument is optional. If this argument is Y/yes 
+#than the script will automatically detect an connected usb 
+#storage device and save it to the first one it detects.
 
-#ArgumentL Output directory
-This argument is also optional. This argument is for manually depicting the output file location. Note that the "save to usb" argument must be N/no for it to work properly.
+#Argument: Output directory
+#This argument is also optional. This argument is for manually 
+#depicting the output file location. Note that the "save to usb" 
+#argument must be N/no for it to work properly.
 ```
 
 ### Backlog

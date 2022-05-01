@@ -6,7 +6,7 @@ A fun easy script that turns a midi file into a GCode file which a 3D printer ca
 
 ### How to use
 A quick overview of how to use this script.
-```
+```sh
 #Installing the required packages
 pip install -e .
 
